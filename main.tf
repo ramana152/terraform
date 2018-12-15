@@ -35,7 +35,7 @@ resource "aws_instance" "aws" {
     private_key = "${file(var.private_key_path)}"
   }
 
-  provisioner "remote-exec" {
+  provisioner "local-exec" {
     inline = [
         "apt-get install git -y",
         "git clone https://github.com/ramana152/terraform.git",
