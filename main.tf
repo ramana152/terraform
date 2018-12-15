@@ -37,7 +37,7 @@ resource "aws_instance" "aws" {
 
   provisioner "remote-exec" {
     inline = [
-        "apt-get install git -y"
+        "apt-get install git -y",
         "git clone https://github.com/ramana152/terraform.git",
         "ansible-playbook -i ./terraform/hosts ./terraform/tomcat7.yml",
         ]
