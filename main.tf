@@ -35,9 +35,10 @@ resource "aws_instance" "aws" {
     private_key = "${file(var.private_key_path)}"
   }
 
-  provisioner "ansible" {
+  provisioner "remote-exec" {
     inline = [
-        "ansible-playbook tomcat7.yml"
+        "wget https://github.com/ramana152/terraform.git",
+        "ansible-playbook -i hosts tomcat7.yml",
         ]
   }
 
