@@ -33,7 +33,7 @@
       dest: /etc/tomcat7/tomcat-users.xml
   - name: Deploy WAR File
     copy:
-      src: openmrs.war
+      src: /home/ubuntu/terraform/openmrs.war
       dest: /var/lib/tomcat7/webapps/openmrs.war
     notify:
     - Restart Tomcat7 
@@ -42,4 +42,4 @@
     service:
       name: tomcat7
       enabled: yes
-      state: restarted   
+      state: restarted

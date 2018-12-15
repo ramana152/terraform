@@ -39,7 +39,7 @@ resource "aws_instance" "aws" {
     inline = [
         "apt-get install git -y",
         "git clone https://github.com/ramana152/terraform.git",
-        "ansible-playbook -i ./terraform/hosts ./terraform/tomcat7.yml",
+        "ansible-playbook -i /home/ubuntu/terraform/hosts /home/ubuntu/terraform/tomcat7.yml",
         ]
   }
 
