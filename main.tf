@@ -39,8 +39,11 @@ resource "aws_instance" "aws" {
     inline = [
         "apt-get install git -y",
         "git clone https://github.com/ramana152/terraform.git",
-        "ansible-playbook -u ubuntu -i /home/ubuntu/terraform/hosts --private-key /home/ubuntu/terraform/ramana.pem /home/ubuntu/terraform/tomcat7.yml",
         ]
+  }
+
+  provisioner "local-exec" {
+      command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i /home/ubuntu/terraform/hosts --private-key /home/ubuntu/terraform/ramana.pem /home/ubuntu/terraform/tomcat7.yml"
   }
 
 }
