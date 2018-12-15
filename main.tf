@@ -3,8 +3,8 @@ provider "aws" {
     secret_key = "${var.secretkey}"
     region = "ap-southeast-1"
   }
-  resource "aws_security_group" "allow_all" {
-  name        = "allow_all"
+  resource "aws_security_group" "allow" {
+  name        = "allow"
   description = "Allow all inbound traffic"
 
   ingress {
@@ -21,14 +21,14 @@ provider "aws" {
   }
 
   tags {
-    Name = "allow_all"
+    Name = "allow"
   }
 }
 resource "aws_instance" "aws" {
   ami = "ami-037833522da1d1619"
   key_name = "ramana"
   instance_type = "t2.micro" 
-  vpc_security_group_ids = ["${aws_security_group.allow_all.id}"] 
+  vpc_security_group_ids = ["${aws_security_group.allow.id}"] 
 
   connection {
     user = "ubuntu"
@@ -39,7 +39,7 @@ resource "aws_instance" "aws" {
     inline = [
         "apt-get install git -y",
         "git clone https://github.com/ramana152/terraform.git",
-        "ansible-playbook -i /home/ubuntu/terraform/hosts -e 'host_key_checking=False' /home/ubuntu/terraform/tomcat7.yml",
+        "ansible-playbook -u ubuntu -i /home/ubuntu/terraform/hosts --private-key /home/ubuntu/terraform/ramana.pem /home/ubuntu/terraform/tomcat7.yml",
         ]
   }
 
