@@ -1,6 +1,14 @@
 ---
 - hosts: all
   become: yes
+  vars:
+    tomcatopt:
+      - tomcat7-docs 
+      - tomcat7-admin
+      - tomcat7-examples
+      - default-jdk
+      - ant 
+      - git
   tasks:
   - name: update and installing tomcat
     apt:
@@ -15,15 +23,8 @@
     - Restart Tomcat7
   - name: installing tomcat packages
     apt:
-      name: "{{ item }}"
+      name: "{{ tomcatopt }}"
       state: present
-    loop:
-    - tomcat7-docs 
-    - tomcat7-admin
-    - tomcat7-examples
-    - default-jdk
-    - ant 
-    - git 
     notify:
     - Restart Tomcat7  
   - name: tomcat web management
